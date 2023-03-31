@@ -5,8 +5,8 @@
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: gray;
     color: whitesmoke
 }
@@ -37,10 +37,6 @@ p {
     margin: 0 !important;
 }
 
-.meaning {
-    list-style: circle !important;
-}
-
 .bx {
     vertical-align: middle;
 }
@@ -61,6 +57,7 @@ li {
     padding: 10px !important;
     margin-bottom: 20px;
     text-align: center;
+    list-style: circle;
 }
 .noun {
     font-style: italic;

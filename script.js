@@ -6,10 +6,11 @@ let link = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 let searchbar = document.querySelector('.searchbar');
 let phonetic = document.querySelector('.phonetic')
 const meaningList = document.querySelector('ul');
-const meaningItemFirst = document.createElement('li');
-const meaningItemSecond = document.createElement('li');
-const btnPlay = document.querySelector('.btn-play')
 
+
+
+const btnPlay = document.querySelector('.button-play')
+let soundPhonetics = new Audio();
 
 const btn = document.querySelector('button')
 
@@ -21,27 +22,36 @@ const gatherData = () => fetch(`${link}${searchbar.value}`)
         return {
             name: entry.word,
             meaning: entry.meanings[0],
-            phonetic: entry.phonetic
+            phonetic: entry.phonetic,
+            sound: entry.phonetics[0].audio
         }
     })
     
-    meaningItemFirst.classList.add('list-group-item');
-    meaningItemSecond.classList.add('list-group-item');
-    
     wordName.innerText = accessedEntries[0].name
-
-    meaningItemFirst.innerHTML = accessedEntries[0].meaning.definitions[0].definition;
-    meaningItemSecond.innerHTML = accessedEntries[0].meaning.definitions[1].definition
-
-
+    let displayedMeaning = accessedEntries[0].meaning.definitions;
     phonetic.innerText = accessedEntries[0].phonetic;
+
+    // iterates over every element in displayedMeaning object and creates a separate list item for each
+    displayedMeaning.forEach(item => {
+        const meaningItem = document.createElement('li');
+        
+        meaningItem.classList.add('list-group-item');
+        meaningItem.append(item.definition)
+        meaningList.append(meaningItem)
+    })
+ 
+    // plays pronounciation sound if it exists within the json file
+    btnPlay.addEventListener('click', () => {
+        soundPhonetics.src = accessedEntries[0].sound
     
-    meaningList.append(meaningItemFirst, meaningItemSecond);
+        if(phonetic.innerText !== ''){
+            soundPhonetics.play()
+        }
+    })
     
 })
 
 btn.addEventListener('click', () => {
-
     
     gatherData()
     
