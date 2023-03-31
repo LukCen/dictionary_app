@@ -41,6 +41,7 @@ const gatherData = () => fetch(`${link}${searchbar.value}`)
     })
  
     // plays pronounciation sound if it exists within the json file
+    // will need to look into this cause it seems like it's not always able to find the file
     btnPlay.addEventListener('click', () => {
         soundPhonetics.src = accessedEntries[0].sound
     
@@ -51,9 +52,22 @@ const gatherData = () => fetch(`${link}${searchbar.value}`)
     
 })
 
+// checks if list containing meanings is empty
+
+const listEmpty = () => {
+    console.log(meaningList.innerHTML.trim() === '')
+    return meaningList.innerHTML.trim() === ''
+}
+
 btn.addEventListener('click', () => {
-    
-    gatherData()
+
+    // if the list containing meanings isn't empty (eg. the user just made a query using the search bar) it'll remove every single list item and then run the gatherData function again - prevents info from other queries from cluttering the screen
+    if(listEmpty() === false){
+        meaningList.innerHTML = ''
+        gatherData()
+    } else if(listEmpty() === true){
+        gatherData()
+    }
     
 })
 
