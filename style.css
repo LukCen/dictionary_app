@@ -2,17 +2,20 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 body {
     width: 100%;
     height: 100%;
-    background-color: gray;
-    color: whitesmoke
+    background-color: rgb(94, 94, 94);
+
+    color: rgb(230, 225, 225)
 }
 
 i {
     font-size: 25px;
+    color: white;
 }
 
 

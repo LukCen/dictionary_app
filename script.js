@@ -6,13 +6,37 @@ let link = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 let searchbar = document.querySelector('.searchbar');
 let phonetic = document.querySelector('.phonetic')
 const meaningList = document.querySelector('ul');
+const fontSelect = document.querySelector('select')
 
 
 
 const btnPlay = document.querySelector('.button-play')
 let soundPhonetics = new Audio();
 
+// search button
 const btn = document.querySelector('button')
+
+
+fontSelect.addEventListener('change', () => {
+    let currentlySelectedOption = fontSelect.options[fontSelect.selectedIndex];
+  
+    let selectedFont = currentlySelectedOption.textContent;
+
+    if(selectedFont === 'Serif'){
+        document.body.style.fontFamily = "'Rockwell', 'Times New Roman', serif"
+       
+    }
+
+    if(selectedFont === 'Sans-serif'){
+        document.body.style.fontFamily = "'Helvetica', 'Verdana', sans-serif";
+       
+    }
+
+    if(selectedFont === 'Monospace'){
+        document.body.style.fontFamily = "'Courier', 'Courier New', monospace";
+        
+    }
+})
 
 const gatherData = () => fetch(`${link}${searchbar.value}`)
 .then(result => result.json())
@@ -43,11 +67,12 @@ const gatherData = () => fetch(`${link}${searchbar.value}`)
     // plays pronounciation sound if it exists within the json file
     // will need to look into this cause it seems like it's not always able to find the file
     btnPlay.addEventListener('click', () => {
-        soundPhonetics.src = accessedEntries[0].sound
+        soundPhonetics.src = accessedEntries[0].sound;
     
         if(phonetic.innerText !== ''){
             soundPhonetics.play()
         }
+
     })
     
 })
